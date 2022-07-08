@@ -10,10 +10,23 @@ pipeline {
       }
     }
 
-    stage('Run the container') {
-      steps {
-        sh 'docker-compose up'
-      }
+    stage('Run tests against the container') {
+      
+        parallel {
+          stage('run') {
+            steps {
+              sh 'docker-compose up'
+            }
+          }
+          stage('test') {
+            steps {
+              sleep(10)
+              sh 'curl http://localhost:8081/api/v1/employees'
+            }
+          }
+        }
+        // sh 'curl http://localhost:8081/api/v1/employees'
+      // }
     }
     // stage('Deploy Container To Openshift') {
     //   steps {
