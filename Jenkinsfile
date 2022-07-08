@@ -1,12 +1,12 @@
 def projectName = 'jenkins-project'
 def version = "0.0.1"
-def dockerImageTag = "${projectName}:${version}"
+def dockerImageTag = "project_service"
 pipeline {
   agent any
   stages {
     stage('Build Container') {
       steps {
-        sh "docker-compose build -t ${dockerImageTag}"
+        sh "docker-compose build"
       }
     }
 
