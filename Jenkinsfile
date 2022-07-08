@@ -13,7 +13,7 @@ pipeline {
     stage('Run tests against the container') {
       
         parallel {
-          stage('run') {
+          stage('run the container') {
             options {
                 timeout(time: 30, unit: "SECONDS")
             }
