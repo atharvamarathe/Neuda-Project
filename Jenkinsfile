@@ -10,20 +10,20 @@ pipeline {
       }
     }
 
-    // stage('Run tests against the container') {
-    //   steps {
-    //     sh 'curl http://localhost:8081/api/v1/employees'
-    //   }
-    // }
-    stage('Deploy Container To Openshift') {
+    stage('Run the container') {
       steps {
-        sh "oc login https://localhost:8080 --username admin --password c0nygre --insecure-skip-tls-verify=true"
-        sh "oc project ${projectName} || oc new-project ${projectName}"
-        sh "oc delete all --selector app=${projectName} || echo 'Unable to delete all previous openshift resources'"
-        sh "oc new-app ${dockerImageTag} -l version=${version}"
-        sh "oc expose svc/${projectName}"
+        sh 'docker-compose up'
       }
     }
+    // stage('Deploy Container To Openshift') {
+    //   steps {
+    //     sh "oc login https://localhost:8080 --username admin --password c0nygre --insecure-skip-tls-verify=true"
+    //     sh "oc project ${projectName} || oc new-project ${projectName}"
+    //     sh "oc delete all --selector app=${projectName} || echo 'Unable to delete all previous openshift resources'"
+    //     sh "oc new-app ${dockerImageTag} -l version=${version}"
+    //     sh "oc expose svc/${projectName}"
+    //   }
+    // }
 
   }
 
