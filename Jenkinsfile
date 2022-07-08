@@ -14,6 +14,9 @@ pipeline {
       
         parallel {
           stage('run') {
+            options {
+                timeout(time: 30, unit: "SECONDS")
+            }
             steps {
               sh 'docker-compose up'
             }
